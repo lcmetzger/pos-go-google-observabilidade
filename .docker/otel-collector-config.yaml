@@ -1,0 +1,30 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+exporters:
+  prometheus: 
+    endpoint: "0.0.0.0:8889"
+
+  debug:
+
+  zipkin/tlsnoverify:
+    endpoint: "http://zipkin:9411/api/v2/spans"
+    tls:
+      insecure_skip_verify: true
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, zipkin/tlsnoverify]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, prometheus] 

@@ -1,0 +1,6 @@
+
+### Teste para acesso local ao Serviço A
+POST http://localhost:3333/cep
+Content-Type: application/json
+
+{"cep": "89040115"}
